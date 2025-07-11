@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blockchain Node Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>🌐 Blockchain Node Dashboard</h1>
+        <p class="subtitle">Monitor, mine, and manage your blockchain node in real-time.</p>
+    </header>
+    <main>
+        <section class="card">
+            <h2>⛏️ Mine a Block</h2>
+            <form action="/mine_block">
+                <button class="primary-btn" type="submit">Mine Block</button>
+            </form>
+        </section>
+        <section class="card">
+            <h2>💸 Add Transaction</h2>
+            <form action="/add_transaction" method="POST">
+                <input name="sender" placeholder="Sender" required>
+                <input name="receiver" placeholder="Receiver" required>
+                <input name="amount" placeholder="Amount" required>
+                <button class="primary-btn" type="submit">Add Transaction</button>
+            </form>
+        </section>
+        <section class="card">
+            <h2>🔗 Connect to Peer</h2>
+            <form action="/connect_node" method="POST">
+                <input name="node" placeholder="http://127.0.0.1:5001" required>
+                <button class="primary-btn" type="submit">Connect</button>
+            </form>
+        </section>
+        <section class="card">
+            <h2>🔁 Replace Chain (Sync)</h2>
+            <form action="/replace_chain">
+                <button class="primary-btn" type="submit">Sync Chain</button>
+            </form>
+        </section>
+        <section class="card">
+            <h2>📦 Blockchain Data</h2>
+            <div class="blockchain-list">
+                {% for block in chain %}
+                    <div class="block">
+                        <p><span>Index:</span> {{ block.index }}</p>
+                        <p><span>Transactions:</span> {{ block.transactions }}</p>
+                        <p><span>Proof:</span> {{ block.proof }}</p>
+                        <p><span>Previous Hash:</span> {{ block.previous_hash }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="card">
+            <h2>🌍 Connected Peers</h2>
+            <ul class="peer-list">
+                {% for node in peers %}
+                    <li>{{ node }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
